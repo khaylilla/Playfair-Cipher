@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide - Playfair Cipher</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #F8EEF8;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #DECDD9;
+      padding: 10px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #555;
+      line-height: 1.2;
+    }
+
+    .sublogo {
+      font-size: 20px;
+      color: #555;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #5a4c4c;
+      font-weight: bold;
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+      padding-bottom: 3px;
+    }
+
+    nav a:hover {
+      color: #9c6b9b;
+      border-bottom: 2px solid #9c6b9b;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .judul {
+      background-color: #e3d0e4;
+      padding: 15px 20px;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: bold;
+      color: #4a3c4d;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .judul p {
+      font-weight: normal;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .step {
+      background-color: #D1ADD1;
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .step h3 {
+      margin-top: 0;
+      color: #502c4c;
+    }
+
+    .step ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+
+    .step ul li {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .highlight {
+      color: #c7385e;
+      font-weight: bold;
+    }
+
+    .emoji {
+      font-size: 16px;
+      margin-right: 5px;
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 18px;
+      }
+
+      .sublogo {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">PLAYFAIR<br><span class="sublogo">CIPHER</span></div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="guide.html">Guide</a>
+          <a href="simulator.html">Simulator</a>
+        </nav>
+      </header>
+
+  <main>
+    <div class="judul">
+      Panduan Penggunaan Aplikasi Web Playfair Cipher
+      <p>Ikuti panduan di bawah ini untuk menggunakan fitur enkripsi dan dekripsi pesan secara tepat.</p>
+    </div>
+
+    <div class="step">
+      <h3>1. Masuk ke Halaman "Simulasi"</h3>
+      <ul>
+        <li>Klik menu <strong>Enkripsi & Dekripsi</strong> di navigasi utama.</li>
+        <li>Kamu akan diarahkan ke halaman utama untuk mengolah pesan.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>2. Pilih Mode Operasi</h3>
+      <ul>
+        <li>✅ Enkripsi – untuk mengubah teks asli menjadi sandi</li>
+        <li>☑️ Dekripsi – untuk mengubah sandi menjadi teks asli</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>3. Masukkan Kata Kunci (Key)</h3>
+      <ul>
+        <li>Di kolom ‘Masukkan Kunci’, ketik kata kunci yang akan digunakan sebagai dasar membentuk matriks 5x5.</li>
+        <li>Hanya huruf A–Z yang diperbolehkan. Huruf J akan dianggap sebagai I.</li>
+        <li class="highlight">📌 Contoh: MONARCHY</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>4. Masukkan Plain Text</h3>
+      <ul>
+        <li>Di kolom ‘Masukkan Pesan’, ketik pesan yang ingin kamu enkripsi atau dekripsi.</li>
+        <li>Spasi dan karakter non-alfabet akan otomatis diabaikan.</li>
+        <li class="highlight">📌 Contoh pesan untuk enkripsi: HELLO WORLD → menjadi HELLOWORLD</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>5. Klik Tombol Start</h3>
+      <ul>
+        <li>Klik tombol ‘Start’ untuk memulai enkripsi atau dekripsi.</li>
+        <li>Hasil akan ditampilkan di bawah, lengkap dengan penjelasan proses bigram dan matriks yang digunakan.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>6. Lihat Output</h3>
+      <ul>
+        Bagian ‘Output’ akan menampilkan:
+          <ul>
+            <li>Matriks Kunci 5x5</li>
+            <li>Bigram yang terbentuk dari pesan</li>
+            <li>Hasil akhir enkripsi/dekripsi</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>7. Salin Hasil</h3>
+      <ul>
+        Gunakan tombol ‘Salin’ di bawah hasil untuk menyalin teks sandi atau pesan asli ke clipboard.
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>8. Reset Form</h3>
+      <ul>
+        Klik tombol ‘Reset’ jika ingin memulai dengan kunci atau pesan yang baru.
+      </ul>
+    </div>
+  </main>
+
+</body>
+</html>

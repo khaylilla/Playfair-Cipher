@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playfair Cipher</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #DECDD9;
+      padding: 10px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #555;
+      line-height: 1.2;
+    }
+
+    .sublogo {
+      font-size: 20px;
+      color: #555;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #5a4c4c;
+      font-weight: bold;
+    }
+    
+    nav a:hover {
+      color: #9c6b9b;
+      border-bottom: 2px solid #9c6b9b;
+    }
+
+    .hero {
+      background-image: url('Background.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      background-color:#DECDD9;
+      opacity : 0.8;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #4b3f4e;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #5c4d57;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #987b95;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      color: #333;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #b49ac4;
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PLAYFAIR<br><span class="sublogo">CIPHER</span></div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="guide.html">Guide</a>
+          <a href="simulator.html">Simulator</a>
+        </nav>
+      </header>
+
+  <main class="hero">
+    <div class="overlay">
+      <h1>Selamat datang di</h1>
+      <h2>Visualisasi Interaktif Algoritma Playfair Cipher</h2>
+      <p>
+        Kriptografi klasik dengan alat interaktif untuk enkripsi dan dekripsi menggunakan metode Playfair Cipher.
+        Playfair Cipher adalah algoritma enkripsi simetris berbasis substitusi yang menggunakan pasangan huruf dan sebuah kunci matriks 5x5.
+        Cipher ini populer dalam sejarah sebagai salah satu cipher tangan yang efektif pada masanya.
+      </p>
+      <button onclick="window.location.href='simulator.html'">Start</button>
+    </div>
+  </main>
+
+  <script>
+    function startSimulator() {
+      alert("Simulasi akan dimulai... (halaman simulator belum tersedia)");
+      // window.location.href = 'simulator.html'; // aktifkan jika ada file simulator
+    }
+  </script>
+</body>
+</html>

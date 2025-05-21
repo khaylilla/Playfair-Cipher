@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulator | Playfair Cipher</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #F8EEF8;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #DECDD9;
+      padding: 10px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #555;
+      line-height: 1.2;
+    }
+
+    .sublogo {
+      font-size: 20px;
+      color: #555;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #5a4c4c;
+      font-weight: bold;
+    }
+    
+    nav a:hover {
+      color: #9c6b9b;
+      border-bottom: 2px solid #9c6b9b;
+    }
+    .container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .section-title {
+      background-color: #DECDD9;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 2rem;
+    }
+    .input-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .input-group {
+      flex: 1;
+      min-width: 250px;
+    }
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .button-group button {
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #DECDD9;
+      cursor: pointer;
+      box-shadow: 2px 3px #b487bb;
+      transition: transform 0.2s ease;
+    }
+    .button-group button:hover {
+      transform: scale(0.95);
+    }
+    .output-section {
+      margin-top: 2rem;
+    }
+    .output-box {
+      background-color: #DECDD9;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+    .step {
+      background-color: #fff4fc;
+      border-left: 4px solid #d58ed5;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+    .step-title {
+      font-weight: bold;
+      color: #802f87;
+      margin-bottom: 0.5rem;
+    }
+    .grid-table {
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .grid-table td {
+      border: 1px solid #b497b9;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      font-weight: bold;
+      background-color: #fff;
+    }
+  </style>
+</head>
+
+ <body>
+        <header>
+            <div class="logo">PLAYFAIR<br><span class="sublogo">CIPHER</span></div>
+            <nav>
+              <a href="index.html">Home</a>
+              <a href="guide.html">Guide</a>
+              <a href="simulator.html">Simulator</a>
+            </nav>
+          </header>
+
+  <div class="container">
+    <div class="section-title">
+      Simulasi Enkripsi & Dekripsi Playfair Cipher
+      <p style="font-size: 14px;">Masukkan kata kunci dan pesan Anda, sesuai dengan panduan yang sudah tertera</p>
+    </div>
+
+    <div class="input-section">
+      <div class="input-group">
+        <label for="mode">Pilih Mode</label>
+        <select id="mode">
+          <option value="encrypt">Enkripsi</option>
+          <option value="decrypt">Dekripsi</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="key">Masukkan Key</label>
+        <input type="text" id="key" placeholder="Hanya menerima huruf A–Z Contoh: MONARCHY" />
+      </div>
+
+      <div class="input-group" style="flex: 100%;">
+        <label for="plaintext">Masukkan Plain Text</label>
+        <input type="text" id="plaintext" placeholder="Contoh: HELLO WORLD" />
+      </div>
+
+      <div class="button-group">
+        <button onclick="runPlayfair()">Start</button>
+        <button onclick="resetForm()">Reset</button>
+      </div>
+    </div>
+
+    <div class="output-section">
+      <h3>Output</h3>
+      <div id="output" class="output-box">Hasil akan muncul di sini...</div>
+    </div>
+  </div>
+
+  <script>
+    function resetForm() {
+      document.getElementById('mode').value = 'encrypt';
+      document.getElementById('key').value = '';
+      document.getElementById('plaintext').value = '';
+      document.getElementById('output').innerHTML = 'Hasil akan muncul di sini...';
+      location.reload();
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+        alert("Hasil berhasil disalin ke clipboard!");
+        });
+    }
+
+    function runPlayfair() {
+    const startTime = performance.now();
+    const mode = document.getElementById('mode').value;
+    let key = document.getElementById('key').value.toUpperCase().replace(/[^A-Z]/g, '').replace(/J/g, 'I');
+    let text = document.getElementById('plaintext').value.toUpperCase().replace(/[^A-Z]/g, '').replace(/J/g, 'I');
+    const output = document.getElementById('output');
+
+    if (!key || !text) {
+      output.innerHTML = "<span style='color:red'>Masukkan key dan pesan!</span>";
+      return;
+    }
+
+
+    // Buat matriks kunci
+    let matrix = [];
+    let seen = new Set();
+    let alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+    (key + alphabet).split('').forEach(c => {
+      if (!seen.has(c)) {
+        seen.add(c);
+        matrix.push(c);
+      }
+    });
+
+    let grid = [];
+    for (let i = 0; i < 5; i++) {
+      grid.push(matrix.slice(i * 5, i * 5 + 5));
+    }
+
+    function findCoords(c) {
+      for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
+          if (grid[i][j] === c) return [i, j];
+        }
+      }
+    }
+
+    // Proses pasangan huruf
+    let pairs = [];
+    for (let i = 0; i < text.length; i++) {
+      let a = text[i];
+      let b = text[i + 1];
+      if (!b) {
+        b = 'X';
+      } else if (a === b) {
+        b = (a === 'X') ? 'Q' : 'X';
+      } else {
+        i++;
+      }
+      pairs.push([a, b]);
+    }
+
+    // Tampilkan matriks
+    let matrixHTML = "<table class='grid-table'>";
+    grid.forEach(row => {
+      matrixHTML += "<tr>" + row.map(c => `<td>${c}</td>`).join('') + "</tr>";
+    });
+    matrixHTML += "</table>";
+
+    output.innerHTML = `
+      <div class='step'>
+        <div class='step-title'>Matriks Kunci 5x5:</div>
+        ${matrixHTML}
+      </div>
+      <div class='step'>
+        <div class='step-title'>Bigram (Pasangan):</div>
+        ${pairs.map(p => p.join('')).join(' ')}
+      </div>
+      <div id="steps"></div>
+      <div id="final-result" class="step" style="display:none;">
+        <div class='step-title'>Hasil Akhir ${mode === "encrypt" ? "Enkripsi" : "Dekripsi"}:</div>
+        <strong id="result-text"></strong>
+       <div style="margin-top: 10px;">
+  <button onclick="copyToClipboard(document.getElementById('result-text').innerText)">📋 Copy</button>
+  <div id="exec-time" style="margin-top: 10px; font-size: 14px; color: #555;"></div>
+</div>
+      </div>
+    `;
+
+    const stepsContainer = document.getElementById('steps');
+    const finalResult = document.getElementById('final-result');
+    const resultText = document.getElementById('result-text');
+    let result = "";
+
+    pairs.forEach(([a, b], index) => {
+      setTimeout(() => {
+        let [r1, c1] = findCoords(a);
+        let [r2, c2] = findCoords(b);
+        let transformed = "";
+        let stepHTML = "";
+
+        if (r1 === r2) {
+          transformed = mode === "encrypt"
+            ? grid[r1][(c1 + 1) % 5] + grid[r2][(c2 + 1) % 5]
+            : grid[r1][(c1 + 4) % 5] + grid[r2][(c2 + 4) % 5];
+          stepHTML = `
+            <div class="step">
+              <div class="step-title">Bigram ${a}${b} (Satu Baris)</div>
+              Ganti ${a} → ${grid[r1][(c1 + (mode === "encrypt" ? 1 : 4)) % 5]}, 
+              ${b} → ${grid[r2][(c2 + (mode === "encrypt" ? 1 : 4)) % 5]}<br />
+              Hasil: <strong>${transformed}</strong>
+            </div>
+          `;
+        } else if (c1 === c2) {
+          transformed = mode === "encrypt"
+            ? grid[(r1 + 1) % 5][c1] + grid[(r2 + 1) % 5][c2]
+            : grid[(r1 + 4) % 5][c1] + grid[(r2 + 4) % 5][c2];
+          stepHTML = `
+            <div class="step">
+              <div class="step-title">Bigram ${a}${b} (Satu Kolom)</div>
+              Ganti ${a} → ${grid[(r1 + (mode === "encrypt" ? 1 : 4)) % 5][c1]}, 
+              ${b} → ${grid[(r2 + (mode === "encrypt" ? 1 : 4)) % 5][c2]}<br />
+              Hasil: <strong>${transformed}</strong>
+            </div>
+          `;
+        } else {
+          transformed = grid[r1][c2] + grid[r2][c1];
+          stepHTML = `
+            <div class="step">
+              <div class="step-title">Bigram ${a}${b} (Persegi Panjang)</div>
+              Ganti ${a} → ${grid[r1][c2]}, ${b} → ${grid[r2][c1]}<br />
+              Hasil: <strong>${transformed}</strong>
+            </div>
+          `;
+        }
+
+        result += transformed;
+        stepsContainer.innerHTML += stepHTML;
+
+        if (index === pairs.length - 1) {
+          setTimeout(() => {
+            resultText.textContent = result;
+            finalResult.style.display = "block";
+            const endTime = performance.now();
+            const elapsedMs = endTime - startTime;
+            const totalSeconds = Math.floor(elapsedMs / 1000);
+            const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const seconds = String(totalSeconds % 60).padStart(2, '0');
+            document.getElementById("exec-time").innerText = `Waktu Eksekusi: ${hours}:${minutes}:${seconds}`;
+
+          }, 500);
+        }
+      }, 700 * index);
+    });
+  }
+</script>
+
+</body>
+</html>
